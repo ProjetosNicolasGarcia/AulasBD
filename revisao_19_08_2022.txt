@@ -1,0 +1,175 @@
+Microsoft Windows [versão 10.0.19043.1165]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Alunos>cd c:\mysql\bin
+O sistema não pode encontrar o caminho especificado.
+
+C:\Users\Alunos>cd c:\xampp\mysql\bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 38
+Server version: 10.4.17-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| revisao            |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use revisao
+Database changed
+MariaDB [revisao]>
+MariaDB [revisao]> describe produtos
+    -> ;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| codigo       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome_produto | varchar(255) | YES  |     | NULL    |                |
+| cor          | varchar(255) | YES  |     | NULL    |                |
+| preco        | decimal(5,2) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.022 sec)
+
+MariaDB [revisao]> INSERT INTO produtos (nome_produto,cor,preco) VALUES
+    -> ('ferrari','vermelho',1.99),
+    -> ('lamborguini','amarelo',2.99),
+    -> ('borracha','branco',3.99),
+    -> ('caderno','azul',3.99),
+    -> ('fichario','preto',4.99),
+    -> ('tesoura','verde',5.99),
+    -> (helicoptero,'camuflado',55,99),
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 8
+MariaDB [revisao]>
+MariaDB [revisao]> INSERT INTO produtos (nome_produto,cor,preco) VALUES
+    -> ('ferrari','vermelho',1.99);
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [revisao]> INSERT INTO produtos (nome_produto,cor,preco) VALUES
+    -> ('lamborguini','amarelo',2.99),
+    -> ('porsche','laranja',3.99),
+    -> ('audi','preto',4.99),
+    -> ('RangeRover','verde',5.99),
+    -> ('Mustang','azul',6.99),
+    -> ('Camaro','amarelo',7.99),
+    -> ('Mclaren','branco',8.99),
+    -> ('Bugatti','Rosa',9.99),
+    -> ('Corsa','Roxo',10.99),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 10
+MariaDB [revisao]> INSERT INTO produtos (nome_produto,cor,preco) VALUES
+    -> ('ferrari','vermelho',1.99),
+    -> ('Bugatti','Rosa',9.99),
+    -> ('Mclaren','branco',8.99),
+    -> ('Mustang','azul',6.99),
+    -> ('RangeRover','verde',5.99),
+    -> ('audi','preto',4.99),
+    -> ('porsche','laranja',3.99),
+    -> ('lamborguini','amarelo',2.99),
+    -> ('Camaro','amarelo',7.99),
+    -> ('Corsa','Roxo',10.99);
+Query OK, 10 rows affected (0.010 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [revisao]> select * from produtos
+    -> ;
++--------+--------------+----------+-------+
+| codigo | nome_produto | cor      | preco |
++--------+--------------+----------+-------+
+|      1 | ferrari      | vermelho |  1.99 |
+|      2 | ferrari      | vermelho |  1.99 |
+|      3 | Bugatti      | Rosa     |  9.99 |
+|      4 | Mclaren      | branco   |  8.99 |
+|      5 | Mustang      | azul     |  6.99 |
+|      6 | RangeRover   | verde    |  5.99 |
+|      7 | audi         | preto    |  4.99 |
+|      8 | porsche      | laranja  |  3.99 |
+|      9 | lamborguini  | amarelo  |  2.99 |
+|     10 | Camaro       | amarelo  |  7.99 |
+|     11 | Corsa        | Roxo     | 10.99 |
++--------+--------------+----------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [revisao]> select * from produtos;
++--------+--------------+----------+-------+
+| codigo | nome_produto | cor      | preco |
++--------+--------------+----------+-------+
+|      2 | ferrari      | vermelho |  1.99 |
+|      3 | Bugatti      | Rosa     |  9.99 |
+|      4 | Mclaren      | branco   |  8.99 |
+|      5 | Mustang      | azul     |  6.99 |
+|      6 | RangeRover   | verde    |  5.99 |
+|      7 | audi         | preto    |  4.99 |
+|      8 | porsche      | laranja  |  3.99 |
+|      9 | lamborguini  | amarelo  |  2.99 |
+|     10 | Camaro       | amarelo  |  7.99 |
+|     11 | Corsa        | Roxo     | 10.99 |
++--------+--------------+----------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [revisao]> describe compras
+    -> ;
++-------------+---------+------+-----+---------+----------------+
+| Field       | Type    | Null | Key | Default | Extra          |
++-------------+---------+------+-----+---------+----------------+
+| nf          | int(11) | NO   | PRI | NULL    | auto_increment |
+| data_compra | date    | YES  |     | NULL    |                |
+| id_cliente  | int(11) | YES  | MUL | NULL    |                |
+| codigo      | int(11) | YES  | MUL | NULL    |                |
++-------------+---------+------+-----+---------+----------------+
+4 rows in set (0.009 sec)
+
+MariaDB [revisao]> INSERT INTO COMPRAS (data_compra,id_cliente,codigo) VALUES
+    -> ('2022-08-19',1,4),
+    -> ('2022-08-19',1,1),
+    -> ('2022-08-18',2,1),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 4
+MariaDB [revisao]> INSERT INTO COMPRAS (data_compra,id_cliente,codigo) VALUES
+    -> ('2022-08-19',1,4),
+    -> ('2022-08-19',1,1),
+    -> ('2022-08-18',2,1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`revisao`.`compras`, CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`codigo`) REFERENCES `produtos` (`codigo`))
+MariaDB [revisao]> INSERT INTO compras (data_compra,id_cliente,codigo) VALUES
+    -> ('2022-08-19',1,4),
+    ->
+    -> ('2022-08-19',1,1),
+    -> ('2022-08-18',2,1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`revisao`.`compras`, CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`codigo`) REFERENCES `produtos` (`codigo`))
+MariaDB [revisao]> INSERT INTO COMPRAS (data_compra,id_cliente,codigo) VALUES
+    -> ('2022-08-18',1,1),
+    -> ('2022-08-19',1,1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`revisao`.`compras`, CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`codigo`) REFERENCES `produtos` (`codigo`))
+MariaDB [revisao]> INSERT INTO COMPRAS (data_compra,id_cliente,codigo) VALUES
+    -> ('2022-08-18',2,2),
+    -> ('2022-08-19',1,2),
+    -> ('2022-08-18',3,2);
+Query OK, 3 rows affected (0.011 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [revisao]> select * from compras;
++----+-------------+------------+--------+
+| nf | data_compra | id_cliente | codigo |
++----+-------------+------------+--------+
+|  9 | 2022-08-18  |          2 |      2 |
+| 10 | 2022-08-19  |          1 |      2 |
+| 11 | 2022-08-18  |          3 |      2 |
++----+-------------+------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [revisao]>
